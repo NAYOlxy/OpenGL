@@ -27,8 +27,8 @@ namespace test {
 		std::unique_ptr <Texture> m_Texture2;
 
 		glm::mat4 m_Proj, m_View;
-		glm::vec3 m_translationA;
-		glm::vec3 m_translationB;
+		float ModelRotate;
+		float ProjDistance;
 	};
 
 }

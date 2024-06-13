@@ -46,7 +46,7 @@ namespace test {
 		m_Shader->Bind();
 		m_Shader->SetUniform4f("u_Color", 0.8f, 0.3f, 0.8f, 0.2f);
 		unsigned int texture;
-		m_Texture = std::make_unique<Texture>("res/textures/awesomeface.png",texture);
+		m_Texture = std::make_unique<Texture>("res/textures/awesomeface.png");
 		m_Shader->SetUniform1i("u_Texture1", 0);
 
 	}
@@ -67,7 +67,7 @@ namespace test {
 		Renderer renderer;
 
 
-		m_Texture->Bind();
+		m_Texture->Bind(0);
 
 		{
 			glm::mat4 model = glm::translate(glm::mat4(1.0f), m_translationA);
