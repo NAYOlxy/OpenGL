@@ -23,12 +23,11 @@
 #include "tests/TestClearColor.h"
 #include "tests/TestTexture2D.h"
 #include "tests/TestTexture3D.h"
-
+#include "tests/TestLight.h"
 
 int main(void)
 {
 	GLFWwindow* window;
-
 	/* Initialize the library */
 	if (!glfwInit())
 		return -1;
@@ -56,10 +55,9 @@ int main(void)
 	std::cout << glGetString(GL_VERSION) << std::endl; 
 	{
 
-		// 开启透明度混合
+		//开启透明度混合
 		GLCall(glEnable(GL_BLEND));
 		GLCall(glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA));
-
 
 		Renderer renderer;
 
@@ -74,6 +72,7 @@ int main(void)
 		testMenu->RegisterTest<test::TestClearColor>("Clear Color");
 		testMenu->RegisterTest<test::TestTexture2D>("2D Texture");
 		testMenu->RegisterTest<test::TestTexture3D>("3D Texture");
+		testMenu->RegisterTest<test::TestLight>("Light");
 
 
 		/* Loop until the user closes the window */
@@ -113,4 +112,4 @@ int main(void)
 	ImGui::DestroyContext();
 	glfwTerminate();
 	return 0;
-}       
+}      

@@ -137,8 +137,10 @@
     <ClCompile Include="source\IndexBuffer.cpp" />
     <ClCompile Include="source\Renderer.cpp" />
     <ClCompile Include="source\Shader.cpp" />
+    <ClCompile Include="source\tests\Camera.cpp" />
     <ClCompile Include="source\tests\Test.cpp" />
     <ClCompile Include="source\tests\TestClearColor.cpp" />
+    <ClCompile Include="source\tests\TestLight.cpp" />
     <ClCompile Include="source\tests\TestTexture2D.cpp" />
     <ClCompile Include="source\tests\TestTexture3D.cpp" />
     <ClCompile Include="source\Texture.cpp" />
@@ -161,8 +163,10 @@
     <ClInclude Include="source\IndexBuffer.h" />
     <ClInclude Include="source\Renderer.h" />
     <ClInclude Include="source\Shader.h" />
+    <ClInclude Include="source\tests\Camera.h" />
     <ClInclude Include="source\tests\Test.h" />
     <ClInclude Include="source\tests\TestClearColor.h" />
+    <ClInclude Include="source\tests\TestLight.h" />
     <ClInclude Include="source\tests\TestTexture2D.h" />
     <ClInclude Include="source\tests\TestTexture3D.h" />
     <ClInclude Include="source\Texture.h" />
