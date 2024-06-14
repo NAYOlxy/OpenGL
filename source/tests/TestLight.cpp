@@ -100,7 +100,10 @@ namespace test {
 
 		GLCall(glEnable(GL_DEPTH_TEST));
 
-		m_lightingShader = std::make_unique<Shader>("res/shaders/lighting.shader");
+		// 这里有两个着色器可以挑选，一个是Gouraud着色器，一个是Phong着色器
+		// 文件名分别是：lightingGouraud.shader 和 lightingPhong.shader
+		// 其中Phong着色器使用的是Blinn-Phong光照模型,也就是halfdir，而没使用reflect
+		m_lightingShader = std::make_unique<Shader>("res/shaders/lightingGouraud.shader");
 		m_lightingCubeShader = std::make_unique<Shader>("res/shaders/lightingCube.shader");
 
 
@@ -134,6 +137,7 @@ namespace test {
 		m_lightingShader->SetUniform3f("objectColor", 1.0f, 0.5f, 0.31f);
 		m_lightingShader->SetUniform3f("lightColor", 1.0f, 1.0f, 1.0f);
 		m_lightingShader->SetUniform3f("lightPos", lightPos);
+		m_lightingShader->SetUniform3f("viewPos", camera1.cameraPos);
 
 		Renderer renderer;
 		
