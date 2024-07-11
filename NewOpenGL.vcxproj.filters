@@ -72,6 +72,9 @@
     <ClCompile Include="source\tests\Camera.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="source\tests\TestDiffuseMap.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\vender\stb_image\stb_image.h">
@@ -585,6 +588,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="source\tests\Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tests\TestDiffuseMap.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

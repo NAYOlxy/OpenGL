@@ -24,6 +24,7 @@
 #include "tests/TestTexture2D.h"
 #include "tests/TestTexture3D.h"
 #include "tests/TestLight.h"
+#include "tests/TestDiffuseMap.h"
 
 int main(void)
 {
@@ -73,6 +74,7 @@ int main(void)
 		testMenu->RegisterTest<test::TestTexture2D>("2D Texture");
 		testMenu->RegisterTest<test::TestTexture3D>("3D Texture");
 		testMenu->RegisterTest<test::TestLight>("Light");
+		testMenu->RegisterTest<test::TestDiffuseMap>("DiffuseMap");
 
 
 		/* Loop until the user closes the window */
