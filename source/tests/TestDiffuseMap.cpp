@@ -28,8 +28,72 @@ namespace test {
 	inline void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 	inline void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
+	Camera camera2;
 
-	Camera camera2 ;
+	inline void processInput(GLFWwindow* window)
+	{
+		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+			glfwSetWindowShouldClose(window, true);
+
+		float cameraSpeed = static_cast<float>(2.5 * camera2.deltaTime);
+		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+			camera2.cameraPos += cameraSpeed * camera2.cameraFront;
+		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+			camera2.cameraPos -= cameraSpeed * camera2.cameraFront;
+		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+			camera2.cameraPos -= glm::normalize(glm::cross(camera2.cameraFront, camera2.cameraUp)) * cameraSpeed;
+		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+			camera2.cameraPos += glm::normalize(glm::cross(camera2.cameraFront, camera2.cameraUp)) * cameraSpeed;
+	}
+
+	inline void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
+	{
+		float xpos = static_cast<float>(xposIn);
+		float ypos = static_cast<float>(yposIn);
+
+		if (camera2.firstMouse)
+		{
+			camera2.lastX = xpos;
+			camera2.lastY = ypos;
+			camera2.firstMouse = false;
+		}
+
+		float xoffset = xpos - camera2.lastX;
+		float yoffset = camera2.lastY - ypos; // reversed since y-coordinates go from bottom to top
+		camera2.lastX = xpos;
+		camera2.lastY = ypos;
+
+		float sensitivity = 0.1f; // change this value to your liking
+		xoffset *= sensitivity;
+		yoffset *= sensitivity;
+
+		camera2.yaw += xoffset;
+		camera2.pitch += yoffset;
+
+		// make sure that when pitch is out of bounds, screen doesn't get flipped
+		if (camera2.pitch > 89.0f)
+			camera2.pitch = 89.0f;
+		if (camera2.pitch < -89.0f)
+			camera2.pitch = -89.0f;
+
+		glm::vec3 front;
+		front.x = cos(glm::radians(camera2.yaw)) * cos(glm::radians(camera2.pitch));
+		front.y = sin(glm::radians(camera2.pitch));
+		front.z = sin(glm::radians(camera2.yaw)) * cos(glm::radians(camera2.pitch));
+		camera2.cameraFront = glm::normalize(front);
+	}
+
+	// glfw: whenever the mouse scroll wheel scrolls, this callback is called
+	// ----------------------------------------------------------------------
+	inline void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+	{
+		camera2.fov -= (float)yoffset;
+		if (camera2.fov < 1.0f)
+			camera2.fov = 1.0f;
+		if (camera2.fov > 45.0f)
+			camera2.fov = 45.0f;
+	}
+
 
 	TestDiffuseMap::TestDiffuseMap()
 		:m_Proj(glm::mat4(1.0f)),
@@ -183,69 +247,7 @@ namespace test {
 	}
 
 	
-	void processInput(GLFWwindow* window)
-	{
-		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-			glfwSetWindowShouldClose(window, true);
-
-		float cameraSpeed = static_cast<float>(2.5 * camera2.deltaTime);
-		if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-			camera2.cameraPos += cameraSpeed * camera2.cameraFront;
-		if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-			camera2.cameraPos -= cameraSpeed * camera2.cameraFront;
-		if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-			camera2.cameraPos -= glm::normalize(glm::cross(camera2.cameraFront, camera2.cameraUp)) * cameraSpeed;
-		if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-			camera2.cameraPos += glm::normalize(glm::cross(camera2.cameraFront, camera2.cameraUp)) * cameraSpeed;
-	}
-
-	void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
-	{
-		float xpos = static_cast<float>(xposIn);
-		float ypos = static_cast<float>(yposIn);
-
-		if (camera2.firstMouse)
-		{
-			camera2.lastX = xpos;
-			camera2.lastY = ypos;
-			camera2.firstMouse = false;
-		}
-
-		float xoffset = xpos - camera2.lastX;
-		float yoffset = camera2.lastY - ypos; // reversed since y-coordinates go from bottom to top
-		camera2.lastX = xpos;
-		camera2.lastY = ypos;
-
-		float sensitivity = 0.1f; // change this value to your liking
-		xoffset *= sensitivity;
-		yoffset *= sensitivity;
-
-		camera2.yaw += xoffset;
-		camera2.pitch += yoffset;
-
-		// make sure that when pitch is out of bounds, screen doesn't get flipped
-		if (camera2.pitch > 89.0f)
-			camera2.pitch = 89.0f;
-		if (camera2.pitch < -89.0f)
-			camera2.pitch = -89.0f;
-
-		glm::vec3 front;
-		front.x = cos(glm::radians(camera2.yaw)) * cos(glm::radians(camera2.pitch));
-		front.y = sin(glm::radians(camera2.pitch));
-		front.z = sin(glm::radians(camera2.yaw)) * cos(glm::radians(camera2.pitch));
-		camera2.cameraFront = glm::normalize(front);
-	}
-
-	// glfw: whenever the mouse scroll wheel scrolls, this callback is called
-	// ----------------------------------------------------------------------
-	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-	{
-		camera2.fov -= (float)yoffset;
-		if (camera2.fov < 1.0f)
-			camera2.fov = 1.0f;
-		if (camera2.fov > 45.0f)
-			camera2.fov = 45.0f;
-	}
+	
 
 }
 
