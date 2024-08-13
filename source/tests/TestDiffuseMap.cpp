@@ -24,13 +24,13 @@ namespace test {
 	float lightPosY = 1.0f;
 	float lightPosZ = 0.0f;
 
-	inline void processInput(GLFWwindow* window);
-	inline void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-	inline void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+	static void processInput(GLFWwindow* window);
+	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 	Camera camera2;
 
-	inline void processInput(GLFWwindow* window)
+	static void processInput(GLFWwindow* window)
 	{
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(window, true);
@@ -46,7 +46,7 @@ namespace test {
 			camera2.cameraPos += glm::normalize(glm::cross(camera2.cameraFront, camera2.cameraUp)) * cameraSpeed;
 	}
 
-	inline void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
+	static void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 	{
 		float xpos = static_cast<float>(xposIn);
 		float ypos = static_cast<float>(yposIn);
@@ -85,7 +85,7 @@ namespace test {
 
 	// glfw: whenever the mouse scroll wheel scrolls, this callback is called
 	// ----------------------------------------------------------------------
-	inline void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	{
 		camera2.fov -= (float)yoffset;
 		if (camera2.fov < 1.0f)
@@ -101,47 +101,47 @@ namespace test {
 		model(glm::mat4(1.0f))
 	{
 		float vertices[] = {
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
 
-	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-	-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-	-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-	-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-	-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
-	 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-	 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
-	 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
-	 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
-	 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-	 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
-	-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
-	-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
 
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
-	 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-	 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
-	-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
-	-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
 		};
 		
 		m_VAO = std::make_unique<VertexArray>();
@@ -163,7 +163,7 @@ namespace test {
 		glfwSetScrollCallback(glfwGetCurrentContext(), scroll_callback);
 
 		// tell GLFW to capture our mouse
-		//glfwSetInputMode(glfwGetCurrentContext(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		// glfwSetInputMode(glfwGetCurrentContext(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		GLCall(glEnable(GL_DEPTH_TEST));
 
@@ -171,8 +171,6 @@ namespace test {
 		m_DiffuseMap = std::make_unique<Texture>("res/textures/container2.png");
 		m_SpecularMap = std::make_unique<Texture>("res/textures/container2_specular.png");
 		m_lightingCubeShader = std::make_unique<Shader>("res/shaders/lightingCube.shader");
-
-
 	}
 
 	TestDiffuseMap::~TestDiffuseMap()
@@ -205,15 +203,21 @@ namespace test {
 		m_lightingShader->Bind();
 		m_lightingShader->SetUniform1i("material.diffuse", 0);
 		m_lightingShader->SetUniform1i("material.specular", 1);
-		m_lightingShader->SetUniform3f("lightColor", 1.0f, 1.0f, 1.0f);
-		m_lightingShader->SetUniform3f("light.position", lightPos);
-		m_lightingShader->SetUniform3f("viewPos", camera2.cameraPos);
-
-		m_lightingShader->SetUniform3f("material.specular", 0.5f, 0.5f, 0.5f);
 		m_lightingShader->SetUniform1f("material.shininess", 64.0f);
+
+		m_lightingShader->SetUniform3f("light.lightColor", 1.0f, 1.0f, 1.0f);
+
+		m_lightingShader->SetUniform3f("light.position", lightPos);
+
 		m_lightingShader->SetUniform3f("light.ambient", 0.2f, 0.2f, 0.2f);
 		m_lightingShader->SetUniform3f("light.diffuse", 0.5f, 0.5f, 0.5f);
 		m_lightingShader->SetUniform3f("light.specular", 1.0f, 1.0f, 1.0f);
+
+		m_lightingShader->SetUniform1f("light.constant", 1.0f);
+		m_lightingShader->SetUniform1f("light.linear", 0.09f);
+		m_lightingShader->SetUniform1f("light.quadratic", 0.032f);
+
+		m_lightingShader->SetUniform3f("viewPos", camera2.cameraPos);
 
 		Renderer renderer;
 		
@@ -232,7 +236,7 @@ namespace test {
 		m_lightingCubeShader->SetUniformMat4("view", m_View);
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, lightPos);
-		model = glm::scale(model, glm::vec3(0.5f));
+		model = glm::scale(model, glm::vec3(0.15f));
 		m_lightingCubeShader->SetUniformMat4("model", model);
 		m_lightVAO->Bind();
 		renderer.Draw(*m_lightVAO,  *m_lightingCubeShader,36);
@@ -240,14 +244,10 @@ namespace test {
 
 	void TestDiffuseMap::OnImGuiRender()
 	{
-  		ImGui::SliderFloat(" lightPos X", &lightPosX, -3.0f,3.0f);
-  		ImGui::SliderFloat(" lightPos Y", &lightPosY, -3.0f,3.0f);
-  		ImGui::SliderFloat(" lightPos Z", &lightPosZ, -3.0f,3.0f);
+  		ImGui::SliderFloat(" lightPos X", &lightPosX, -10.0f,10.0f);
+  		ImGui::SliderFloat(" lightPos Y", &lightPosY, -10.0f,10.0f);
+  		ImGui::SliderFloat(" lightPos Z", &lightPosZ, -10.0f,10.0f);
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	}
-
-	
-	
-
 }
 

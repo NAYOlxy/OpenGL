@@ -24,13 +24,15 @@ const unsigned int SCR_HEIGHT = 540;
 
 namespace test {
 	
-	inline void processInput(GLFWwindow* window);
-	inline void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-	inline void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+	// TODO:
+	// 这个地方如果用inline,那么后续添加的案例会覆盖掉
+	static void processInput(GLFWwindow* window);
+	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 	Camera camera1;
 
-	inline void processInput(GLFWwindow* window)
+	static void processInput(GLFWwindow* window)
 	{
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(window, true);
@@ -46,7 +48,7 @@ namespace test {
 			camera1.cameraPos += glm::normalize(glm::cross(camera1.cameraFront, camera1.cameraUp)) * cameraSpeed;
 	}
 
-	inline void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
+	static void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 	{
 		float xpos = static_cast<float>(xposIn);
 		float ypos = static_cast<float>(yposIn);
@@ -85,7 +87,7 @@ namespace test {
 
 	// glfw: whenever the mouse scroll wheel scrolls, this callback is called
 	// ----------------------------------------------------------------------
-	inline void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	{
 		camera1.fov -= (float)yoffset;
 		if (camera1.fov < 1.0f)
@@ -156,8 +158,8 @@ namespace test {
 
 		m_lightVAO->AddBuffer(*m_VertexBuffer, layout);
 
-		glfwSetCursorPosCallback(glfwGetCurrentContext(), mouse_callback);
-		glfwSetScrollCallback(glfwGetCurrentContext(), scroll_callback);
+// 		glfwSetCursorPosCallback(glfwGetCurrentContext(), mouse_callback);
+// 		glfwSetScrollCallback(glfwGetCurrentContext(), scroll_callback);
 
 		// tell GLFW to capture our mouse
 		//glfwSetInputMode(glfwGetCurrentContext(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -184,6 +186,9 @@ namespace test {
 	void TestLight::OnRender()
 	{
 		GLFWwindow* currentWindow = glfwGetCurrentContext();
+
+		glfwSetCursorPosCallback(glfwGetCurrentContext(), mouse_callback);
+		glfwSetScrollCallback(glfwGetCurrentContext(), scroll_callback);
 
 		float currentFrame = static_cast<float>(glfwGetTime());
 		camera1.deltaTime = currentFrame - camera1.lastFrame;
@@ -236,7 +241,7 @@ namespace test {
 		m_lightingCubeShader->SetUniformMat4("view", m_View);
 		model = glm::mat4(1.0f);
 		model = glm::translate(model, lightPos);
-		model = glm::scale(model, glm::vec3(0.5f));
+		model = glm::scale(model, glm::vec3(0.15f));
 		m_lightingCubeShader->SetUniformMat4("model", model);
 		m_lightVAO->Bind();
 		renderer.Draw(*m_lightVAO,  *m_lightingCubeShader,36);
@@ -249,9 +254,5 @@ namespace test {
   		ImGui::SliderFloat(" lightPos Z", &lightPosZ, -3.0f,3.0f);
 		ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	}
-
-	
-	
-
 }
 

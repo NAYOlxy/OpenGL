@@ -75,6 +75,12 @@
     <ClCompile Include="source\tests\TestDiffuseMap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="source\tests\TestFlashlight.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="source\tests\TestMultilight.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\vender\stb_image\stb_image.h">
@@ -591,6 +597,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="source\tests\TestDiffuseMap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tests\TestFlashlight.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\tests\TestMultilight.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Positions.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

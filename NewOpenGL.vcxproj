@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -141,7 +141,9 @@
     <ClCompile Include="source\tests\Test.cpp" />
     <ClCompile Include="source\tests\TestClearColor.cpp" />
     <ClCompile Include="source\tests\TestDiffuseMap.cpp" />
+    <ClCompile Include="source\tests\TestFlashlight.cpp" />
     <ClCompile Include="source\tests\TestLight.cpp" />
+    <ClCompile Include="source\tests\TestMultilight.cpp" />
     <ClCompile Include="source\tests\TestTexture2D.cpp" />
     <ClCompile Include="source\tests\TestTexture3D.cpp" />
     <ClCompile Include="source\Texture.cpp" />
@@ -162,13 +164,16 @@
     <ClInclude Include="Dependencies\GLFW\include\GLFW\glfw3.h" />
     <ClInclude Include="Dependencies\GLFW\include\GLFW\glfw3native.h" />
     <ClInclude Include="source\IndexBuffer.h" />
+    <ClInclude Include="source\Positions.h" />
     <ClInclude Include="source\Renderer.h" />
     <ClInclude Include="source\Shader.h" />
     <ClInclude Include="source\tests\Camera.h" />
     <ClInclude Include="source\tests\Test.h" />
     <ClInclude Include="source\tests\TestClearColor.h" />
     <ClInclude Include="source\tests\TestDiffuseMap.h" />
+    <ClInclude Include="source\tests\TestFlashlight.h" />
     <ClInclude Include="source\tests\TestLight.h" />
+    <ClInclude Include="source\tests\TestMultilight.h" />
     <ClInclude Include="source\tests\TestTexture2D.h" />
     <ClInclude Include="source\tests\TestTexture3D.h" />
     <ClInclude Include="source\Texture.h" />

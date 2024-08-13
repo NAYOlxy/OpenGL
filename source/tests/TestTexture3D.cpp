@@ -19,13 +19,13 @@ const unsigned int SCR_HEIGHT = 540;
 namespace test {
 
 
-	inline void processInput(GLFWwindow* window);
-	inline void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-	inline void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+	static void processInput(GLFWwindow* window);
+	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 
 	Camera camera0;
 
-	inline void processInput(GLFWwindow* window)
+	static void processInput(GLFWwindow* window)
 	{
 		if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 			glfwSetWindowShouldClose(window, true);
@@ -41,7 +41,7 @@ namespace test {
 			camera0.cameraPos += glm::normalize(glm::cross(camera0.cameraFront, camera0.cameraUp)) * cameraSpeed;
 	}
 
-	inline void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
+	static void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
 	{
 		float xpos = static_cast<float>(xposIn);
 		float ypos = static_cast<float>(yposIn);
@@ -80,7 +80,7 @@ namespace test {
 
 	// glfw: whenever the mouse scroll wheel scrolls, this callback is called
 	// ----------------------------------------------------------------------
-	inline void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+	static void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 	{
 		camera0.fov -= (float)yoffset;
 		if (camera0.fov < 1.0f)
